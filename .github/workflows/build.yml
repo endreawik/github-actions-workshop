@@ -4,20 +4,36 @@ on:
   pull_request:
     branches:
       - main
-
+      
 jobs:
   build:
     name: Build Project
     runs-on: ubuntu-latest
     steps:
       # Remember we have to check out the repository first!
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v5
 
       # This step installs the dependencies
       - name: Install dependencies
         run: npm ci
 
-      # Add a step that runs the build command:
-      - name: Build
+      # This step builds the project
+      - name: Build project
         run: npm run build
+
+  test:
+    name: Test Project
+    runs-on: ubuntu-latest
+    steps:
+      # Remember we have to check out the repository first!
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      # This step installs the dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # This step runs the tests
+      - name: Run tests
+        run: npm test
